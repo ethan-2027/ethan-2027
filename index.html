@@ -1,0 +1,825 @@
+<h1>👋 Hello World!</h1> <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civic Unfiltered</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #dc2626, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #dc2626, #1d4ed8);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(29, 78, 216, 0.1) 0%, transparent 50%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #dc2626, white, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: slideUp 1s ease-out 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(45deg, #dc2626, #1d4ed8);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: slideUp 1s ease-out 0.4s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(220, 38, 38, 0.3);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            display: none;
+        }
+
+        .main-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #dc2626, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Blog Categories */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .category-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .category-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #dc2626;
+        }
+
+        /* Blog Posts */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-post {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #dc2626, #1d4ed8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 1rem;
+        }
+
+        .blog-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .blog-excerpt {
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: #dc2626;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: #1d4ed8;
+        }
+
+        /* About Page */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #ccc;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .member-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #dc2626, #1d4ed8);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Contact Page */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ccc;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-family: inherit;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #888;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #dc2626, #1d4ed8);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.3);
+        }
+
+        /* Subscribe Section */
+        .subscribe {
+            background: linear-gradient(45deg, #dc2626, #1d4ed8);
+            padding: 4rem 0;
+            text-align: center;
+            margin: 4rem 0;
+            border-radius: 20px;
+        }
+
+        .subscribe h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .subscribe-form {
+            display: flex;
+            max-width: 400px;
+            margin: 2rem auto 0;
+            gap: 1rem;
+        }
+
+        .subscribe-form input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 50px;
+            background: white;
+            color: #333;
+        }
+
+        .subscribe-form button {
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .subscribe-form button:hover {
+            background: white;
+            color: #dc2626;
+        }
+
+        /* Social Share */
+        .social-share {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn.twitter { background: #1da1f2; }
+        .social-btn.facebook { background: #3b5998; }
+        .social-btn.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+
+        .social-btn:hover {
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .subscribe-form {
+                flex-direction: column;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .categories {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Civic Unfiltered</div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" onclick="showPage('blog')">Blog</a></li>
+                <li><a href="#" onclick="showPage('about')">About</a></li>
+                <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home-page">
+        <div class="hero-content">
+            <h1>Civic Unfiltered</h1>
+            <p>Raw. Real. Political discourse for the next generation.</p>
+            <a href="#" class="cta-button" onclick="showPage('blog')">Explore Our Takes</a>
+        </div>
+    </section>
+
+    <!-- Blog Categories -->
+    <div class="main-content" id="blog-page">
+        <div class="container">
+            <section class="section">
+                <h2 class="section-title">What We're About</h2>
+                <div class="categories">
+                    <div class="category-card">
+                        <span class="category-icon">💭</span>
+                        <h3>Opinion Pieces</h3>
+                        <p>Unfiltered takes on the issues that matter most to our generation</p>
+                    </div>
+                    <div class="category-card">
+                        <span class="category-icon">📊</span>
+                        <h3>Policy Explainers</h3>
+                        <p>Breaking down complex policies into digestible, actionable insights</p>
+                    </div>
+                    <div class="category-card">
+                        <span class="category-icon">😂</span>
+                        <h3>Political Satire</h3>
+                        <p>Because sometimes you have to laugh to keep from crying</p>
+                    </div>
+                    <div class="category-card">
+                        <span class="category-icon">🎤</span>
+                        <h3>Interviews</h3>
+                        <p>Real conversations with the people shaping our political landscape</p>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Latest Posts</h2>
+                <div class="blog-grid">
+                    <article class="blog-post">
+                        <div class="blog-image">💭</div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span>Opinion</span>
+                                <span>June 12, 2025</span>
+                            </div>
+                            <h3 class="blog-title">Why Gen Z Voters Are Changing Everything</h3>
+                            <p class="blog-excerpt">Our generation isn't just participating in democracy—we're redefining what it means to be politically engaged...</p>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-post">
+                        <div class="blog-image">📊</div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span>Policy</span>
+                                <span>June 10, 2025</span>
+                            </div>
+                            <h3 class="blog-title">Climate Policy Decoded: What's Actually on the Table</h3>
+                            <p class="blog-excerpt">Cutting through the rhetoric to understand what climate policies actually mean for students and young adults...</p>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-post">
+                        <div class="blog-image">😂</div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span>Satire</span>
+                                <span>June 8, 2025</span>
+                            </div>
+                            <h3 class="blog-title">Political Twitter in 2025: A Survival Guide</h3>
+                            <p class="blog-excerpt">How to navigate the chaos of political discourse online without losing your sanity (or your followers)...</p>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-post">
+                        <div class="blog-image">🎤</div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span>Interview</span>
+                                <span>June 5, 2025</span>
+                            </div>
+                            <h3 class="blog-title">Student Activist Spotlight: Making Change on Campus</h3>
+                            <p class="blog-excerpt">We sit down with three student organizers who are making real change happen at their universities...</p>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Subscribe Section -->
+            <section class="subscribe">
+                <h3>Stay in the Loop</h3>
+                <p>Get our latest takes delivered straight to your inbox</p>
+                <form class="subscribe-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </section>
+
+            <!-- Social Share -->
+            <div class="social-share">
+                <a href="#" class="social-btn twitter">🐦</a>
+                <a href="#" class="social-btn facebook">📘</a>
+                <a href="#" class="social-btn instagram">📷</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div class="main-content" id="about-page">
+        <div class="container">
+            <section class="section">
+                <h2 class="section-title">About Civic Unfiltered</h2>
+                <div class="about-content">
+                    <p>We're a student-run political blog that believes democracy works best when everyone has a voice—especially young people who will inherit the consequences of today's political decisions.</p>
+                    
+                    <p>Founded by students, for students, Civic Unfiltered breaks down the barriers between complex political issues and the generation that will be most affected by them. We don't just report on politics; we engage with it, question it, and sometimes roast it.</p>
+                    
+                    <p>Our mission is simple: make political discourse accessible, engaging, and relevant to Gen Z and college students everywhere. No corporate spin, no ancient talking points—just real perspectives from real students.</p>
+
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="member-avatar">E</div>
+                            <h4>Ethan Ram</h4>
+                            <p>Founder & Editor-in-Chief</p>
+                            <p>Junior, Gregori High School</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Contact Page -->
+    <div class="main-content" id="contact-page">
+        <div class="container">
+            <section class="section">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="What's this about?">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="6" placeholder="Tell us what's on your mind..." required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+
+                <div class="social-share" style="margin-top: 3rem;">
+                    <a href="#" class="social-btn twitter">🐦</a>
+                    <a href="#" class="social-btn facebook">📘</a>
+                    <a href="#" class="social-btn instagram">📷</a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Civic Unfiltered. Made by students, for students.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Page navigation
+        function showPage(page) {
+            // Hide all pages
+            document.getElementById('home-page').style.display = 'none';
+            document.querySelectorAll('.main-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Show selected page
+            if (page === 'home') {
+                document.getElementById('home-page').style.display = 'flex';
+            } else {
+                document.getElementById(page + '-page').classList.add('active');
+            }
+
+            // Update active nav link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.style.color = 'white';
+            });
+            event.target.style.color = '#dc2626';
+        }
+
+        // Form submission
+        document.querySelector('.contact-form form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thanks for reaching out! We\'ll get back to you soon.');
+            this.reset();
+        });
+
+        // Newsletter subscription
+        document.querySelector('.subscribe-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Welcome to the Civic Unfiltered community! 🎉');
+            this.reset();
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('.nav-links a, .cta-button').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+            });
+        });
+
+        // Add floating animation to category cards
+        document.querySelectorAll('.category-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+            card.classList.add('animate-up');
+        });
+
+        // Parallax effect for hero background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Add some interactive hover effects
+        document.querySelectorAll('.blog-post').forEach(post => {
+            post.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            post.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
